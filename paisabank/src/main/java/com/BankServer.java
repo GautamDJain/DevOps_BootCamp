@@ -27,63 +27,68 @@ public class BankServer {
 
 	}
 
-	public List<Customer> getCustomers() {
+	public String getCustomers() {
 
-		return customers;
+		return "Welcome User ! Paisa Bank has total of " + customers.size() + " customer";
 	}
 
-	public Customer getCustomer(int id) {
-		Customer cust = null;
+	public String getCustomer(int id) {
+
 		for (Customer c : customers) {
 			if (c.getUserid() == id) {
 
-				return c;
+				return "Welcome " + c.getUsername() + ", Your user Id is = " + c.getUserid();
 			}
 		}
 
-		return cust;
+		return "User Not Found";
 	}
 
-	public Customer getCustomer(String name) {
-		Customer cust = null;
+	public String getCustomer(String name) {
+
 		for (Customer c : customers) {
-			if (c.getUsername() == name) {
 
-				return c;
+			if (c.getUsername().equals(name)) {
+
+				return "Welcome " + c.getUsername() + ", Your user Id is = " + c.getUserid();
 			}
 		}
 
-		return cust;
+		return "User Not Found";
 	}
 
-	public Customer getUpdCustomerSex(int id, String gender) {
-		Customer cust = null;
+	public String getUpdCustomerSex(int id, String gender) {
+
 		for (Customer c : customers) {
 			if (c.getUserid() == id) {
 				c.setUsergender(gender);
-				return c;
+				return "Welcome " + c.getUsername() + ", Your user Id is =" + c.getUserid()
+						+ ". You have changed your gender to " + c.getUsergender();
 			}
 		}
 
-		return cust;
+		return "User Not Found";
 	}
 
-	public Customer getUpdCustomerName(int id, String name) {
-		Customer cust = null;
+	public String getUpdCustomerName(int id, String name) {
+
 		for (Customer c : customers) {
 			if (c.getUserid() == id) {
+
+				String message = "Welcome " + c.getUsername() + ", Your user Id is =" + c.getUserid()
+						+ ". You have changed your name " + c.getUsername() + " to " + name;
 				c.setUsername(name);
-				return c;
+				return message;
 			}
 		}
 
-		return cust;
+		return "User Not Found";
 	}
 
 	public String getCustomerBalance(int uid) {
 		for (Customer c : customers) {
 			if (c.getUserid() == uid) {
-				return "You have balance of " + c.getAmount() + "Rs";
+				return "You have balance of " + c.getAmount() + " Rs";
 			}
 		}
 		return "User Not Found";
@@ -94,7 +99,7 @@ public class BankServer {
 			if (c.getUserid() == uid) {
 				double total = c.getAmount() + uamount;
 				c.setAmount(total);
-				return "You have total balance of " + total + "Rs";
+				return "You have total balance of " + total + " Rs";
 			}
 		}
 		return "User Not Found";
@@ -105,10 +110,10 @@ public class BankServer {
 			if (c.getUserid() == uid) {
 				double total = c.getAmount() - uamount;
 				if (total < 0) {
-					return "Insuffient Balance to withdraw !! You have total balance of " + c.getAmount() + "Rs";
+					return "Insuffient Balance to withdraw !! You have total balance of " + c.getAmount() + " Rs";
 				} else {
 					c.setAmount(total);
-					return "You have total balance of " + total + "Rs";
+					return "You have total balance of " + total + " Rs";
 				}
 			}
 		}
@@ -118,7 +123,7 @@ public class BankServer {
 	public String getCustomerInterest(int uid, double uamount) {
 		for (Customer c : customers) {
 			if (c.getUserid() == uid) {
-				double total = uamount * 0.6;
+				double total = (uamount * 0.6)/100;
 				return "You will get total intrest of " + total + " Rs";
 			}
 		}
@@ -128,8 +133,8 @@ public class BankServer {
 	public String getCustomerInfo(int uid) {
 		for (Customer c : customers) {
 			if (c.getUserid() == uid) {
-				return "Hi " + c.getUsername() + ", You have total balance of " + c.getAmount()
-						+ "Rs and Your account number is" + c.getAccountno();
+				return "Welcome " + c.getUsername() + ", You have total balance of " + c.getAmount()
+						+ " Rs and Your account number is " + c.getAccountno();
 			}
 		}
 		return "User Not Found";
