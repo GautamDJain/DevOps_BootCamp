@@ -1,0 +1,197 @@
+SuccessConsole Output
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/GautamDJain/WebApp_BootCamp.git
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/webapp_pipeline
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] stage
+[Pipeline] { (GitHub Repo checkout & Preparation)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential GitHub
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/GautamDJain/WebApp_BootCamp.git # timeout=10
+Fetching upstream changes from https://github.com/GautamDJain/WebApp_BootCamp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.7.4'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress https://github.com/GautamDJain/WebApp_BootCamp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 0dc3540eb64384829826cb0d39fdf9be68951d40 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0dc3540eb64384829826cb0d39fdf9be68951d40 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master 0dc3540eb64384829826cb0d39fdf9be68951d40 # timeout=10
+Commit message: "Update Jenkinsfile"
+ > git rev-list --no-walk 0dc3540eb64384829826cb0d39fdf9be68951d40 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Maven Build, Unit test & Package)
+[Pipeline] sh
++ /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven-3/bin/mvn clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.bootcamp:simple-webapp >---------------------
+[INFO] Building simple-webapp 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ simple-webapp ---
+[INFO] Deleting /var/lib/jenkins/workspace/webapp_pipeline/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ simple-webapp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/webapp_pipeline/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.5.1:compile (default-compile) @ simple-webapp ---
+[INFO] Compiling 1 source file to /var/lib/jenkins/workspace/webapp_pipeline/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ simple-webapp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/webapp_pipeline/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.5.1:testCompile (default-testCompile) @ simple-webapp ---
+[INFO] Compiling 1 source file to /var/lib/jenkins/workspace/webapp_pipeline/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ simple-webapp ---
+[INFO] Surefire report directory: /var/lib/jenkins/workspace/webapp_pipeline/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.CalcTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.524 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ simple-webapp ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [simple-webapp] in [/var/lib/jenkins/workspace/webapp_pipeline/target/simple-webapp]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/var/lib/jenkins/workspace/webapp_pipeline/src/main/webapp]
+[INFO] Webapp assembled in [47 msecs]
+[INFO] Building war: /var/lib/jenkins/workspace/webapp_pipeline/target/simple-webapp.war
+[INFO] WEB-INF/web.xml already added, skipping
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.607 s
+[INFO] Finished at: 2020-09-25T15:24:56Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (deploy on tomcat)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker image build & push to Docker Hub)
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker --version
+Docker version 17.05.0-ce, build 89658be
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker build -t gautamjainsagar/myjavawebappimage .
+Sending build context to Docker daemon  8.186MB
+
+Step 1/7 : FROM tomcat:8.0-alpine
+ ---> 624fb61775c3
+Step 2/7 : VOLUME /tmp
+ ---> Using cache
+ ---> 22b9ae7ec805
+Step 3/7 : MAINTAINER "gautamjain2011@gmail.com"
+ ---> Using cache
+ ---> 602af255b69d
+Step 4/7 : EXPOSE 8080
+ ---> Using cache
+ ---> 41c934b89246
+Step 5/7 : COPY target/*.war /usr/local/tomcat/webapps/
+ ---> 90347d6e6b80
+Step 6/7 : RUN echo "Creation of your docker image is in progress, please hold on for a moment!"
+ ---> Running in b7527a738aab
+Creation of your docker image is in progress, please hold on for a moment!
+Removing intermediate container b7527a738aab
+ ---> 6426cfe3aa9f
+Step 7/7 : CMD ["catalina.sh", "run"]
+ ---> Running in eb34a096c44b
+Removing intermediate container eb34a096c44b
+ ---> 5993191c9960
+Successfully built 5993191c9960
+Successfully tagged gautamjainsagar/myjavawebappimage:latest
+[Pipeline] withCredentials
+Masking supported pattern matches of $dockerHubPass
+[Pipeline] {
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker login -u gautamjainsagar -p ****
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker push gautamjainsagar/myjavawebappimage
+The push refers to repository [docker.io/gautamjainsagar/myjavawebappimage]
+4daf98747607: Preparing
+0136a6a85859: Preparing
+98a0db77a14c: Preparing
+9072514c7af0: Preparing
+f6146a44a7d3: Preparing
+0c3170905795: Preparing
+df64d3292fd6: Preparing
+0c3170905795: Waiting
+df64d3292fd6: Waiting
+98a0db77a14c: Layer already exists
+f6146a44a7d3: Layer already exists
+0136a6a85859: Layer already exists
+9072514c7af0: Layer already exists
+0c3170905795: Layer already exists
+df64d3292fd6: Layer already exists
+4daf98747607: Pushed
+latest: digest: sha256:0d0e1c6c6e71d562bb6e818639717bacc9b5c93c0ac3bb7e3cc4dd81e483c39f size: 1785
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker image pull & run)
+[Pipeline] sshagent
+[ssh-agent] Using credentials cloud_user
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-RHvjC1gOnO17/agent.7923
+SSH_AGENT_PID=7926
+Running ssh-add (command line suppressed)
+Identity added: /var/lib/jenkins/workspace/webapp_pipeline@tmp/private_key_3901002368428185870.key (/var/lib/jenkins/workspace/webapp_pipeline@tmp/private_key_3901002368428185870.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version
+Docker version 18.09.7, build 2d0083d
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker stop javawebapp
+javawebapp
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker rm -f javawebapp
+javawebapp
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker run -d -p 8081:8080 --name javawebapp gautamjainsagar/myjavawebappimage
+9ad5d411a2412206a87d04b3e3fc56013e9647bfa68c565ac52939ae9acc3238
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 7926 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

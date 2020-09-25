@@ -1,0 +1,223 @@
+SuccessConsole Output
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/GautamDJain/SpringBoot_BootCamp.git
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/springboot_pipeline
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] stage
+[Pipeline] { (GitHub Repo checkout & Preparation)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential GitHub
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/GautamDJain/SpringBoot_BootCamp.git # timeout=10
+Fetching upstream changes from https://github.com/GautamDJain/SpringBoot_BootCamp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.7.4'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress https://github.com/GautamDJain/SpringBoot_BootCamp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision be063f0d21ac596edfacd8161bd4460af031ac95 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f be063f0d21ac596edfacd8161bd4460af031ac95 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master be063f0d21ac596edfacd8161bd4460af031ac95 # timeout=10
+Commit message: "Update Jenkinsfile"
+ > git rev-list --no-walk be063f0d21ac596edfacd8161bd4460af031ac95 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Maven Build, Unit test & Package)
+[Pipeline] sh
++ /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven-3/bin/mvn clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< org.devops:cicd-pipeline >----------------------
+[INFO] Building FirstApp 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ cicd-pipeline ---
+[INFO] Deleting /var/lib/jenkins/workspace/springboot_pipeline/target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ cicd-pipeline ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ cicd-pipeline ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /var/lib/jenkins/workspace/springboot_pipeline/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ cicd-pipeline ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/springboot_pipeline/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ cicd-pipeline ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /var/lib/jenkins/workspace/springboot_pipeline/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ cicd-pipeline ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.CalcTest
+15:26:13.628 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:26:13.664 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:26:13.693 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.CalcTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+15:26:13.706 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.CalcTest], using SpringBootContextLoader
+15:26:13.711 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.CalcTest]: class path resource [com/CalcTest-context.xml] does not exist
+15:26:13.713 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.CalcTest]: class path resource [com/CalcTestContext.groovy] does not exist
+15:26:13.714 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.CalcTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:26:13.716 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.CalcTest]: CalcTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:26:13.774 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.CalcTest]
+15:26:13.904 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/var/lib/jenkins/workspace/springboot_pipeline/target/classes/com/Application.class]
+15:26:13.913 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.Application for test class com.CalcTest
+15:26:14.022 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.CalcTest]: using defaults.
+15:26:14.022 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+15:26:14.058 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/TransactionDefinition]
+15:26:14.062 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+15:26:14.064 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7c83dc97, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7748410a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@740773a3, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@37f1104d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@55740540, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@60015ef5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2f54a33d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@1018bde2, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@65b3f4a4, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@f2ff811]
+15:26:14.082 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@236e3f4e testClass = CalcTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3cc1435c testClass = CalcTest, locations = '{}', classes = '{class com.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@275710fc, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@52aa2946, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@2b546384, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@e50a6f6], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+15:26:14.127 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.7.RELEASE)
+
+2020-09-25 15:26:14.530  INFO 8135 --- [           main] com.CalcTest                             : Starting CalcTest on bootcamp-jenkins with PID 8135 (started by jenkins in /var/lib/jenkins/workspace/springboot_pipeline)
+2020-09-25 15:26:14.532  INFO 8135 --- [           main] com.CalcTest                             : No active profile set, falling back to default profiles: default
+2020-09-25 15:26:17.640  INFO 8135 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-25 15:26:17.780  INFO 8135 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2020-09-25 15:26:18.106  INFO 8135 --- [           main] com.CalcTest                             : Started CalcTest in 3.967 seconds (JVM running for 5.234)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.909 s - in com.CalcTest
+2020-09-25 15:26:18.550  INFO 8135 --- [       Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ cicd-pipeline ---
+[INFO] Building jar: /var/lib/jenkins/workspace/springboot_pipeline/target/cicd-pipeline-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.1.7.RELEASE:repackage (repackage) @ cicd-pipeline ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.1.7.RELEASE:repackage (default) @ cicd-pipeline ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.278 s
+[INFO] Finished at: 2020-09-25T15:26:19Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker image build & push to Docker Hub)
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker --version
+Docker version 17.05.0-ce, build 89658be
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker build -t gautamjainsagar/myspringbootimage .
+Sending build context to Docker daemon  17.02MB
+
+Step 1/8 : FROM openjdk:8-jdk-alpine
+ ---> a3562aa0b991
+Step 2/8 : VOLUME /tmp
+ ---> Using cache
+ ---> 00b5d4171a1d
+Step 3/8 : MAINTAINER "gautamjain2011@gmail.com"
+ ---> Using cache
+ ---> b429fed0fd69
+Step 4/8 : EXPOSE 9090
+ ---> Using cache
+ ---> deb3b0da24f3
+Step 5/8 : ARG JAR_FILE=/target/*.jar
+ ---> Using cache
+ ---> f70d8883dc97
+Step 6/8 : COPY ${JAR_FILE} app.jar
+ ---> 874f317e985e
+Step 7/8 : RUN echo "Creation of your docker image is in progress, please hold on for a moment!"
+ ---> Running in a82852eab2dd
+Creation of your docker image is in progress, please hold on for a moment!
+Removing intermediate container a82852eab2dd
+ ---> b83e35f1d3b1
+Step 8/8 : ENTRYPOINT ["java", "-jar", "app.jar"]
+ ---> Running in 1bebe125cf76
+Removing intermediate container 1bebe125cf76
+ ---> 96ab55aa2cbf
+Successfully built 96ab55aa2cbf
+Successfully tagged gautamjainsagar/myspringbootimage:latest
+[Pipeline] withCredentials
+Masking supported pattern matches of $dockerHubPass
+[Pipeline] {
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker login -u gautamjainsagar -p ****
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] sh
++ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker push gautamjainsagar/myspringbootimage
+The push refers to repository [docker.io/gautamjainsagar/myspringbootimage]
+c33b3c522216: Preparing
+ceaf9e1ebef5: Preparing
+9b9b7f3d56a0: Preparing
+f1b5933fe4b5: Preparing
+9b9b7f3d56a0: Layer already exists
+f1b5933fe4b5: Layer already exists
+ceaf9e1ebef5: Layer already exists
+c33b3c522216: Pushed
+latest: digest: sha256:695b8c0d216232d43b4dacc00b90567e523c2f96773ce833178c8e38605006a9 size: 1159
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker image pull & run)
+[Pipeline] sshagent
+[ssh-agent] Using credentials cloud_user
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-5wN4VGpc6SVV/agent.8495
+SSH_AGENT_PID=8497
+Running ssh-add (command line suppressed)
+Identity added: /var/lib/jenkins/workspace/springboot_pipeline@tmp/private_key_3374600328717580623.key (/var/lib/jenkins/workspace/springboot_pipeline@tmp/private_key_3374600328717580623.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version
+Docker version 18.09.7, build 2d0083d
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker stop springbootapp
+springbootapp
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker rm -f springbootapp
+springbootapp
+[Pipeline] sh
++ ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker run -d -p 8088:8080 --name springbootapp gautamjainsagar/myspringbootimage
+298e0862adecbb161fb6646deccccded618a04a4d2d6bb24fb9a0d3b74e3c307
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 8497 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
